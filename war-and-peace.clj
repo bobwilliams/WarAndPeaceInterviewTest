@@ -18,8 +18,13 @@
 (defn count-substring [txt sub]
   (count (re-seq (re-pattern sub) txt)))
 
-(let [book-text  (slurp "./WarAndPeace.txt")
+(defn elapsed-time-msg [start]
+  (println (str "Execution Time: " (- (System/currentTimeMillis) start)) "ms (100 Executions)"))
+
+(let [start-time (System/currentTimeMillis)
+      book-text  (slurp "./WarAndPeace.txt")
       pronoun-counts (->> pronouns
                           (map #(count-substring book-text %)))]
   (println "War And Peace Interview Test...\nCounts for all pronouns in ascending order")
-  (println (sort-by last (zipmap pronouns pronoun-counts))))
+  (println (sort-by last (zipmap pronouns pronoun-counts)))
+  (elapsed-time-msg start-time))
